@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- /* * ConnectBot: simple, powerful, open-source SSH client for Android 
+	* Copyright 2007 Kenny Root, Jeffrey Sharkey * * Licensed under the Apache 
+	License, Version 2.0 (the "License"); * you may not use this file except 
+	in compliance with the License. * You may obtain a copy of the License at 
+	* * http://www.apache.org/licenses/LICENSE-2.0 * * Unless required by applicable 
+	law or agreed to in writing, software * distributed under the License is 
+	distributed on an "AS IS" BASIS, * WITHOUT WARRANTIES OR CONDITIONS OF ANY 
+	KIND, either express or implied. * See the License for the specific language 
+	governing permissions and * limitations under the License. */ -->
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:orientation="vertical" android:layout_width="fill_parent"
+	android:layout_height="fill_parent">
+
+	<!-- This is the layout where the terminal should go. Right now it has a 
+		textview. -->
+	<LinearLayout android:layout_width="fill_parent"
+		android:orientation="vertical" android:id="@+id/display"
+		android:gravity="fill" android:layout_height="122dp">
+
+		<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+			android:layout_width="fill_parent" android:background="#ff000000" android:layout_height="75dip">
+
+			<TextView android:id="@android:id/empty"
+				android:layout_width="fill_parent" android:layout_height="fill_parent"
+				android:text="@string/terminal_no_hosts_connected"
+				android:textAppearance="?android:attr/textAppearanceMedium"
+				android:gravity="center" />
+
+			<ViewFlipper android:id="@+id/console_flip"
+				android:layout_width="fill_parent" android:layout_height="fill_parent">
+
+			</ViewFlipper>
+
+			<RelativeLayout android:id="@+id/console_password_group"
+				android:layout_width="fill_parent" android:layout_height="wrap_content"
+				android:layout_alignParentBottom="true" android:padding="5dip"
+				android:background="#80000000" android:fadingEdge="horizontal"
+				android:fadingEdgeLength="25dip" android:visibility="gone">
+
+				<TextView android:id="@+id/console_password_instructions"
+					android:layout_height="wrap_content" android:textAppearance="?android:attr/textAppearanceMedium"
+					android:layout_width="fill_parent" android:visibility="gone"
+					android:layout_marginBottom="5dip" />
+
+				<EditText android:id="@+id/console_password"
+					android:layout_width="fill_parent" android:layout_height="wrap_content"
+					android:password="true" android:singleLine="true"
+					android:layout_below="@+id/console_password_instructions" />
+			</RelativeLayout>
+
+			<RelativeLayout android:id="@+id/console_boolean_group"
+				android:layout_width="fill_parent" android:layout_height="wrap_content"
+				android:layout_alignParentBottom="true" android:padding="5dip"
+				android:background="#80000000" android:fadingEdge="horizontal"
+				android:fadingEdgeLength="25dip" android:visibility="gone">
+
+				<TextView android:id="@+id/console_prompt"
+					android:layout_height="wrap_content" android:layout_width="fill_parent"
+					android:textAppearance="?android:attr/textAppearanceMedium" />
+
+				<Button android:id="@+id/console_prompt_no" android:text="@string/button_no"
+					android:paddingTop="5dip" android:paddingBottom="10dip"
+					android:paddingLeft="40dip" android:paddingRight="40dip"
+					android:layout_width="wrap_content" android:layout_height="wrap_content"
+					android:layout_alignParentRight="true" android:layout_below="@+id/console_prompt"
+					android:clickable="false" />
+
+				<Button android:id="@+id/console_prompt_yes" android:text="@string/button_yes"
+					android:paddingTop="5dip" android:paddingBottom="10dip"
+					android:paddingLeft="40dip" android:paddingRight="40dip"
+					android:layout_width="wrap_content" android:layout_height="wrap_content"
+					android:layout_toLeftOf="@+id/console_prompt_no"
+					android:layout_below="@+id/console_prompt" />
+
+			</RelativeLayout>
+
+			<RelativeLayout android:id="@+id/keyboard_group"
+				android:layout_width="fill_parent" android:layout_height="wrap_content"
+				android:layout_alignParentBottom="true" android:padding="15dip"
+				android:visibility="gone">
+
+				<ImageView android:id="@+id/button_keyboard"
+					android:layout_width="wrap_content" android:layout_height="wrap_content"
+					android:layout_alignParentBottom="true"
+					android:layout_alignParentRight="true" android:src="@+drawable/button_keyboard" />
+
+				<ImageView android:id="@+id/button_ctrl"
+					android:paddingRight="15dip" android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_alignParentLeft="true"
+					android:layout_alignParentBottom="true" android:src="@+drawable/button_ctrl" />
+
+				<ImageView android:id="@+id/button_esc"
+					android:paddingRight="15dip" android:layout_width="wrap_content"
+					android:layout_height="wrap_content" android:layout_toRightOf="@+id/button_ctrl"
+					android:layout_alignParentBottom="true" android:src="@+drawable/button_esc" />
+
+			</RelativeLayout>
+			<Button android:id="@+id/inject" android:onClick="inject"
+				android:layout_height="wrap_content" android:layout_width="wrap_content"
+				android:text="Button" android:layout_alignParentBottom="true"
+				android:layout_alignParentRight="true"></Button>
+
+		</RelativeLayout>
+
+		<!-- This is the row with the clear and delete buttons. -->
+	</LinearLayout>
+	<LinearLayout android:layout_width="fill_parent"
+		android:layout_weight="1" android:layout_height="wrap_content"
+		android:id="@+id/cleardelete">
+		<Button android:layout_height="fill_parent"
+			android:layout_width="fill_parent" android:layout_weight="1" align="left"
+			android:onClick="clear" android:text="@string/clear" android:id="@+id/clearButton"></Button>
+		<Button android:layout_width="fill_parent"
+			android:layout_weight="1" android:layout_height="fill_parent" align="right"
+			android:onClick="delete" android:text="@string/delete" android:id="@+id/deleteButton"></Button>
+	</LinearLayout>
+
+
+	<!-- Everything below the Clear Delete row. -->
+	<LinearLayout android:layout_width="fill_parent"
+		android:layout_weight="6" android:layout_height="wrap_content"
+		android:id="@+id/mainButtons" android:orientation="horizontal">
+
+		<!-- Vertical layout containing rows of numbers -->
+		<LinearLayout android:layout_width="wrap_content"
+			android:layout_weight="4" android:layout_height="fill_parent"
+			android:id="@+id/numRows" android:orientation="vertical">
+
+			<LinearLayout android:layout_width="fill_parent"
+				android:layout_weight="1" android:layout_height="fill_parent"
+				android:id="@+id/numTopRow" android:orientation="horizontal">
+				<Button android:text="Derivative" android:id="@+id/numDerive"
+					android:layout_weight="1" android:layout_width="fill_parent"
+					android:onClick="addDerive" android:layout_height="fill_parent"></Button>
+				<Button android:text="Lim" android:id="@+id/numLim"
+					android:layout_weight="1" android:layout_width="fill_parent"
+					android:onClick="addLim" android:layout_height="fill_parent"></Button>
+				<Button android:text="Infinity" android:id="@+id/numInf"
+					android:layout_weight="1" android:layout_width="fill_parent"
+					android:onClick="addInfinity" android:layout_height="fill_parent"></Button>
+			</LinearLayout>
+
+			<LinearLayout android:layout_width="fill_parent"
+				android:layout_weight="1" android:layout_height="fill_parent"
+				android:id="@+id/numMiddleRow" android:orientation="horizontal">
+				<Button android:text="Integral" android:id="@+id/numIntegrate"
+					android:layout_weight="1" android:layout_width="fill_parent"
+					android:onClick="addIntegrate" android:layout_height="fill_parent"></Button>
+				<Button android:text="(" android:id="@+id/numLeftP"
+					android:layout_weight="1" android:layout_width="fill_parent"
+					android:onClick="addLeftP" android:layout_height="fill_parent"></Button>
+				<Button android:text=")" android:id="@+id/numrightP"
+					android:layout_weight="1" android:layout_width="fill_parent"
+					android:onClick="addRightP" android:layout_height="fill_parent"></Button>
+			</LinearLayout>
+
+			<LinearLayout android:layout_width="fill_parent"
+				android:layout_weight="1" android:layout_height="fill_parent"
+				android:id="@+id/numTopRow" android:orientation="horizontal">
+				<Button android:text="X" android:id="@+id/numX"
+					android:layout_weight="1" android:layout_width="fill_parent"
+					android:onClick="addX" android:layout_height="fill_parent"></Button>
+				<Button android:text="Y" android:id="@+id/numY"
+					android:layout_weight="1" android:layout_width="fill_parent"
+					android:onClick="addY" android:layout_height="fill_parent"></Button>
+				<Button android:text="Z" android:id="@+id/numZ"
+					android:layout_weight="1" android:layout_width="fill_parent"
+					android:onClick="addZ" android:layout_height="fill_parent"></Button>
+			</LinearLayout>
+
+			<LinearLayout android:layout_width="fill_parent"
+				android:layout_weight="1" android:layout_height="fill_parent"
+				android:id="@+id/numBottomRow" android:orientation="horizontal">
+				<Button android:text="Sin" android:id="@+id/numSin"
+					android:layout_weight="1" android:layout_width="fill_parent"
+					android:onClick="addSin" android:layout_height="fill_parent"></Button>
+				<Button android:text="Cos" android:id="@+id/numCos"
+					android:layout_weight="1" android:layout_width="fill_parent"
+					android:onClick="addCos" android:layout_height="fill_parent"></Button>
+				<Button android:text="Tan" android:id="@+id/numTan"
+					android:layout_weight="1" android:layout_width="fill_parent"
+					android:onClick="addTan" android:layout_height="fill_parent"></Button>
+			</LinearLayout>
+		</LinearLayout>
+
+		<!-- Rightmost Column for Arithmetic Operators -->
+		<LinearLayout android:layout_width="wrap_content"
+			android:layout_weight="1" android:layout_height="fill_parent"
+			android:id="@+id/mathOps" android:orientation="vertical">
+			<Button android:id="@+id/div" android:layout_width="fill_parent"
+				android:layout_weight="1" android:layout_height="fill_parent"
+				android:onClick="addDiv" android:text="@string/division"></Button>
+			<Button android:id="@+id/mul" android:layout_width="fill_parent"
+				android:layout_weight="1" android:layout_height="fill_parent"
+				android:onClick="addMul" android:text="@string/multiplication"></Button>
+			<Button android:id="@+id/sub" android:layout_width="fill_parent"
+				android:layout_weight="1" android:layout_height="fill_parent"
+				android:onClick="addSub" android:text="@string/subtraction"></Button>
+			<Button android:id="@+id/add" android:layout_width="fill_parent"
+				android:layout_weight="1" android:layout_height="fill_parent"
+				android:onClick="addAdd" android:text="@string/addition"></Button>
+		</LinearLayout>
+
+
+	</LinearLayout>
+	<LinearLayout android:layout_width="fill_parent"
+		android:layout_weight="1" android:layout_height="wrap_content"
+		android:id="@+id/evalrow">
+		<Button android:layout_width="fill_parent"
+			android:layout_weight="1" android:layout_height="fill_parent"
+			android:text="Evaluate" android:id="@+id/eval" android:onClick="evaluate"></Button>
+					<Button android:layout_width="fill_parent"
+			android:layout_weight="1" android:layout_height="fill_parent"
+			android:text="Toggle" android:id="@+id/toggle" android:onClick="toggle"></Button>
+	</LinearLayout>
+
+
+</LinearLayout>
+
+
